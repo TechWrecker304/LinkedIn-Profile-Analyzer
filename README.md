@@ -38,3 +38,17 @@ If you'd like to contribute to this project, feel free to submit a pull request 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Notes
+
+This is designed for LinkedIn Profiles you are NOT connected to currently.  It will work with profiles you are connected to but is more optimized for those you are not.  
+
+It is NOT designed for Company Profiles, it will not work with them.  That will come later.
+
+Initial Threshold "Criteria" can be adjusted in the code.  I only set it the way it is now for just testing and as example. 
+Thresholds are in the popup.js area in this function
+function evaluateCriteria(data) {
+  const followerCountThreshold = 500;
+  const connectionCountThreshold = 50;
+  const distanceValueThreshold = 2;
+................................. rest of code
