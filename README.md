@@ -4,7 +4,7 @@ LinkedIn Profile Analyzer is a Chrome extension that helps you analyze LinkedIn 
 
 ## Features
 
-- Extracts data from a LinkedIn profile, including profile picture URL, additional text, about section, connection count, followers number, distance value, and location.
+- Extracts data from a LinkedIn profile, including profile picture URL, additional text, about section, connection count, followers number, distance value, and location. Allows you to do a Reverse Image Search, Export as JSON, or Export as Excel. 
 - Evaluates the extracted data against the following criteria:
   - Follower count >= 500
   - Connection count >= 50
