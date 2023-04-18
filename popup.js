@@ -157,3 +157,16 @@ document.getElementById('exportCSV').addEventListener('click', () => {
     });
   });
 });
+document.getElementById('reverseImageSearch').addEventListener('click', () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.tabs.sendMessage(tabs[0].id, { action: 'extractData' }, (response) => {
+      const profilePictureURL = response.profilePictureURL;
+      if (profilePictureURL) {
+        const tineyeUrl = `https://tineye.com/search?url=${encodeURIComponent(profilePictureURL)}`;
+        window.open(tineyeUrl, '_blank');
+      } else {
+        alert('Profile picture URL not found.');
+      }
+    });
+  });
+});

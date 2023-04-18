@@ -1,13 +1,11 @@
 function extractProfilePictureURL() {
-  const button = document.querySelector('.profile-photo-edit__edit-btn');
-  if (button) {
-    const img = button.querySelector('img');
-    if (img) {
-      return img.src;
-    }
+  const img = document.querySelector('.pv-top-card-profile-picture__image');
+  if (img) {
+    return img.src;
   }
   return null;
 }
+
 
 function extractAdditionalText() {
   const additionalTextElement = document.querySelector('.text-body-medium.break-words[data-generated-suggestion-target]');
@@ -30,15 +28,25 @@ function extractAboutSection() {
 }
 
 function extractConnectionCount() {
-  const connectionElement = document.querySelector('.pv-top-card--list-bullet .text-body-small span.t-black--light');
+  let connectionElement = document.querySelector('.pv-top-card--list-bullet .text-body-small span.t-black--light');
+  if (!connectionElement) {
+    connectionElement = document.querySelector('.pv-top-card--list-bullet .text-body-small');
+  }
+
   if (connectionElement) {
     const countElement = connectionElement.querySelector('.t-bold');
     if (countElement) {
       return countElement.textContent.trim();
+    } else if (connectionElement.textContent.includes('500+')) {
+      return '500+';
+    } else {
+      return connectionElement.textContent.trim();
     }
   }
   return null;
 }
+
+
 
 function extractFollowersNumber() {
   const followersElement = document.querySelector('.pvs-header__title-container .pvs-header__subtitle.text-body-small span');
