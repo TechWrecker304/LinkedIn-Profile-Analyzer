@@ -45,6 +45,10 @@ This is designed for LinkedIn Profiles you are NOT connected to currently.  It w
 
 It is NOT designed for Company Profiles, it will not work with them.  That will come later.
 
+It is not extracting the Profile Picture URL (although there is a placeholder for it) that is an update coming soon.
+
+If you run it on YOUR OWN profile while you logged in it will give mixed results.
+
 Initial Threshold "Criteria" can be adjusted in the code.  I only set it the way it is now for just testing and as example. 
 Thresholds are in the popup.js area in this function
 function evaluateCriteria(data) {
