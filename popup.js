@@ -78,10 +78,6 @@ function saveAsFile(content, filename, mimeType) {
   URL.revokeObjectURL(url);
 }
 
-function saveAsFile(content, filename, mimeType) {
-  // ... (existing saveAsFile function code)
-}
-
 function evaluateCriteria(data) {
   const followerCountThreshold = 500;
   const connectionCountThreshold = 50;
@@ -189,5 +185,12 @@ document.getElementById('reverseImageSearch').addEventListener('click', () => {
         alert('Profile picture URL not found.');
       }
     });
+  });
+});
+document.getElementById('getAboutInfo').addEventListener('click', () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    const currentUrl = tabs[0].url;
+    const aboutUrl = currentUrl + 'overlay/about-this-profile/';
+    chrome.tabs.create({ url: aboutUrl });
   });
 });
