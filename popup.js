@@ -52,6 +52,22 @@ const states = [
   { name: "Wyoming", abbreviation: "WY" },
 ];
 
+const cities = []; // This will be filled with city names from the CSV file.
+
+function loadCities() {
+  fetch('cities.csv')
+    .then(response => response.text())
+    .then(text => {
+      const lines = text.split('\n');
+      lines.forEach(line => {
+        const city = line.trim();
+        if (city) cities.push(city);
+      });
+    });
+}
+
+loadCities();
+
 function saveAsFile(content, filename, mimeType) {
   const blob = new Blob([content], { type: mimeType });
   const url = URL.createObjectURL(blob);
@@ -79,8 +95,9 @@ function evaluateCriteria(data) {
   const meetsConnectionCountCriteria = parsedConnectionCount >= connectionCountThreshold;
   const meetsDistanceValueCriteria = parsedDistanceValue <= distanceValueThreshold;
 
-  const locationIncludesState = states.some(state => data.location.includes(state.name) || data.location.includes(state.abbreviation));
-  const meetsLocationCriteria = data.location && (locationIncludesState || data.location.includes("United States"));
+  const locationIncludesState = states.some(state => data.location.split(',').some(part => part.trim() === state.name || part.trim() === state.abbreviation));
+  const locationIncludesCity = cities.some(city => data.location.includes(city));
+  const meetsLocationCriteria = data.location && (locationIncludesState || locationIncludesCity || data.location.includes("United States"));
 
   const allCriteriaMet = meetsFollowerCountCriteria && meetsConnectionCountCriteria && meetsDistanceValueCriteria && meetsLocationCriteria;
   const criteriaMet = [meetsFollowerCountCriteria, meetsConnectionCountCriteria, meetsDistanceValueCriteria, meetsLocationCriteria].filter(value => value).length;
@@ -91,7 +108,7 @@ function evaluateCriteria(data) {
     meetsConnectionCountCriteria,
     meetsDistanceValueCriteria,
     meetsLocationCriteria,
-    allCriteriaMet, // Add this line
+    allCriteriaMet,
     totalEvaluation
   };
 }

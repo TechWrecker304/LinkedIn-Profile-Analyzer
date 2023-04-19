@@ -3,7 +3,7 @@
   "name": "LinkedIn Profile Analyzer",
   "version": "1.0",
   "description": "Extracts some core data from a LinkedIn user's profile page.",
-  "permissions": ["activeTab", "https://www.linkedin.com/*", "tabs", "webNavigation"],
+  "permissions": ["activeTab", "https://www.linkedin.com/*", "tabs", "webNavigation", "storage"],
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
