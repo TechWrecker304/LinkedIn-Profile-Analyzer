@@ -31,6 +31,7 @@ LinkedIn Profile Analyzer is a Chrome extension that helps you analyze LinkedIn 
 2. Click on the LinkedIn Profile Analyzer extension icon in your browser toolbar.
 3. Click "Extract Data" to display the extracted data and evaluation results in the popup.
 4. To export the data as a JSON or CSV file, click "Export JSON" or "Export CSV" respectively.
+5. To do a Reverse Image Search click the Reverse Image Search button. 
 
 ## Contributing
 
