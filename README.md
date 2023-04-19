@@ -43,7 +43,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Notes
 
-This is designed for LinkedIn Profiles you are NOT connected to currently.  It will work with profiles you are connected to but is more optimized for those you are not.  
+This is designed for LinkedIn Profiles you are NOT connected to currently.  It will work with profiles you are connected to but is more optimized for those you are not. Also if you run it on YOUR OWN PROFILE it will give mixed results it is not programmed for that since you are logged in and have access to many more fields than someone you are not connected to. 
 
 It is NOT designed for Company Profiles, it will not work with them.  That will come later.
 
