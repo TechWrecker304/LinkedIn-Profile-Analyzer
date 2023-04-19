@@ -62,6 +62,10 @@ function saveAsFile(content, filename, mimeType) {
   URL.revokeObjectURL(url);
 }
 
+function saveAsFile(content, filename, mimeType) {
+  // ... (existing saveAsFile function code)
+}
+
 function evaluateCriteria(data) {
   const followerCountThreshold = 500;
   const connectionCountThreshold = 50;
@@ -78,6 +82,7 @@ function evaluateCriteria(data) {
   const locationIncludesState = states.some(state => data.location.includes(state.name) || data.location.includes(state.abbreviation));
   const meetsLocationCriteria = data.location && (locationIncludesState || data.location.includes("United States"));
 
+  const allCriteriaMet = meetsFollowerCountCriteria && meetsConnectionCountCriteria && meetsDistanceValueCriteria && meetsLocationCriteria;
   const criteriaMet = [meetsFollowerCountCriteria, meetsConnectionCountCriteria, meetsDistanceValueCriteria, meetsLocationCriteria].filter(value => value).length;
   const totalEvaluation = criteriaMet >= 3 ? 'Profile Probably Acceptable' : 'Profile Needs Review';
 
@@ -86,11 +91,10 @@ function evaluateCriteria(data) {
     meetsConnectionCountCriteria,
     meetsDistanceValueCriteria,
     meetsLocationCriteria,
+    allCriteriaMet, // Add this line
     totalEvaluation
   };
 }
-
-
 
 document.getElementById('extractData').addEventListener('click', () => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -109,9 +113,9 @@ document.getElementById('extractData').addEventListener('click', () => {
         <p><strong style="color: blue;">Meets follower count criteria:</strong> ${evaluationResults.meetsFollowerCountCriteria ? 'Yes' : 'No'}</p>
         <p><strong style="color: blue;">Meets connection count criteria:</strong> ${evaluationResults.meetsConnectionCountCriteria ? 'Yes' : 'No'}</p>
         <p><strong style="color: blue;">Meets distance value criteria:</strong> ${evaluationResults.meetsDistanceValueCriteria ? 'Yes' : 'No'}</p>
-        <p><strong style="color: blue;">Meets location criteria:</strong> ${evaluationResults.meetsLocationCriteria ? 'Yes' : 'No'}</p>
-        <p><strong style="color: green;">Total Evaluation:</strong> ${evaluationResults.totalEvaluation }</p>
-		
+         <p><strong style="color: blue;">Meets location criteria:</strong> ${evaluationResults.meetsLocationCriteria ? 'Yes' : 'No'}</p>
+        <p><strong style="color: green;">Total Evaluation:</strong> ${evaluationResults.totalEvaluation}</p>
+        ${evaluationResults.allCriteriaMet ? '<p><strong style="color: orange;">THIS PROFILE MEETS ALL CRITERIA</strong></p>' : ''}
       `;
     });
   });
