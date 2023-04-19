@@ -68,6 +68,24 @@ function loadCities() {
 
 loadCities();
 
+const countries = []; // This will be filled with country names from the CSV file.
+
+function loadCountries() {
+  fetch('countries.csv')
+    .then(response => response.text())
+    .then(text => {
+      const lines = text.split('\n');
+      lines.forEach(line => {
+       const columns = line.split(',');
+       const country = columns.length > 3 ? columns[3].trim() : '';	 
+        if (country) countries.push(country);
+      });
+    });
+}
+
+loadCountries();
+
+
 function saveAsFile(content, filename, mimeType) {
   const blob = new Blob([content], { type: mimeType });
   const url = URL.createObjectURL(blob);
@@ -91,9 +109,11 @@ function evaluateCriteria(data) {
   const meetsConnectionCountCriteria = parsedConnectionCount >= connectionCountThreshold;
   const meetsDistanceValueCriteria = parsedDistanceValue <= distanceValueThreshold;
 
-  const locationIncludesState = states.some(state => data.location.split(',').some(part => part.trim() === state.name || part.trim() === state.abbreviation));
-  const locationIncludesCity = cities.some(city => data.location.includes(city));
-  const meetsLocationCriteria = data.location && (locationIncludesState || locationIncludesCity || data.location.includes("United States"));
+  const locationIncludesState = states.some(state => data.location.split(',').some(part => part.trim().includes(state.name) || part.trim().includes(state.abbreviation)));
+  const locationIncludesCity = cities.some(city => data.location.split(',').some(part => part.trim().includes(city)));
+  const locationIsUnitedStates = data.location.includes("United States") || data.location.includes("US");
+  const meetsLocationCriteria = data.location && (locationIncludesState || locationIncludesCity || locationIsUnitedStates);
+
 
   const allCriteriaMet = meetsFollowerCountCriteria && meetsConnectionCountCriteria && meetsDistanceValueCriteria && meetsLocationCriteria;
   const criteriaMet = [meetsFollowerCountCriteria, meetsConnectionCountCriteria, meetsDistanceValueCriteria, meetsLocationCriteria].filter(value => value).length;
