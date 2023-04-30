@@ -15,6 +15,8 @@ LinkedIn Profile Analyzer is a Chrome extension that helps you analyze LinkedIn 
 - Reverese Image Search
 - Display the Profiles About section
 - Extracts Keywords from the About section
+- Allows you to quickly Google Search Location
+- Clickable Profile Picture link for larger view
 
 ## Installation
 
