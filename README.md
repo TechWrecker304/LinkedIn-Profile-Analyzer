@@ -53,6 +53,8 @@ It is NOT designed for Company Profiles, it will not work with them.  That will 
 
 If you run it on YOUR OWN profile while you logged in it will give mixed results.
 
+I am still working out some small bugs when some profiles have low follower and connection counts
+
 Initial Threshold "Criteria" can be adjusted in the code.  I only set it the way it is now for just testing and as example. 
 Thresholds are in the popup.js area in this function
 function evaluateCriteria(data) {
