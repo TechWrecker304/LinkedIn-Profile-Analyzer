@@ -47,7 +47,6 @@ function extractConnectionCount() {
 }
 
 
-
 function extractFollowersNumber() {
   const followersElement = document.querySelector('.pvs-header__title-container .pvs-header__subtitle.text-body-small span');
   if (followersElement) {
@@ -72,13 +71,42 @@ function extractLocation() {
   return null;
 }
 
+function extractKeywords(text) {
+  const stopWords = [
+    'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has', 'he', 'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to', 'was', 'were', 'will', 'with',
+    'your', 'them', 'more', 'then', 'high', 'than', 'around', 'find', 'these', 'through', 'you', 'their', 'they', 'or', 'if', 'about', 'have', 'would', 'this', 'can', 'who'
+  ];
+
+  const words = text
+    .toLowerCase()
+    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
+    .split(/\s+/)
+    .filter(word => word.length > 3 && !stopWords.includes(word));
+
+  const wordFrequencies = words.reduce((map, word) => {
+    map[word] = (map[word] || 0) + 1;
+    return map;
+  }, {});
+
+  const sortedWords = Object.keys(wordFrequencies).sort(
+    (a, b) => wordFrequencies[b] - wordFrequencies[a]
+  );
+
+  return sortedWords.slice(0, 15);
+}
+
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'extractData') {
+    const aboutSection = extractAboutSection();
+    const keywords = extractKeywords(aboutSection);
+
     sendResponse({
       profilePictureURL: extractProfilePictureURL(),
       additionalText: extractAdditionalText(),
       followerCount: extractFollowerCount(),
-      aboutSection: extractAboutSection(),
+      aboutSection: aboutSection,
+      keywords: keywords,
       connectionCount: extractConnectionCount(),
       followersNumber: extractFollowersNumber(),
       distanceValue: extractDistanceValue(),

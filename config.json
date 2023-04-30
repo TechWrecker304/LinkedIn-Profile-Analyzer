@@ -1,0 +1,5 @@
+{
+  "followerCountThreshold": 500,
+  "connectionCountThreshold": 50,
+  "distanceValueThreshold": 2
+}

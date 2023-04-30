@@ -4,12 +4,42 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        margin: 16px;
-        width: 300px;
+        margin: 0;
+        padding: 20px;
+        max-width: 400px;
+      }
+      h1 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
       }
       button {
-        display: block;
-        margin: 16px 0;
+        background-color: #0073b1;
+        border: none;
+        border-radius: 3px;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 5px 0;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+      }
+      button:hover {
+        background-color: #005582;
+      }
+      button:active {
+        background-color: #00324d;
+      }
+      #output {
+        background-color: #f8f8f8;
+        border-radius: 5px;
+        margin-top: 20px;
+        padding: 15px;
+      }
+      strong {
+        font-weight: bold;
       }
     </style>
   </head>
@@ -17,10 +47,11 @@
     <button id="extractData">Extract data</button>
     <button id="exportJSON">Export as JSON</button>
     <button id="exportCSV">Export as CSV</button>
-	<button id="getAboutInfo">Get About Information</button>
-	<button id="reverseImageSearch">Reverse Image Search</button>
+    <button id="getAboutInfo">Get About Information</button>
+    <button id="reverseImageSearch">Reverse Image Search</button>
+    <button id="getContactInfo">Get Contact Information</button>
 
-	<div id="output"></div>
+    <div id="output"></div>
     <script src="popup.js"></script>
   </body>
 </html>

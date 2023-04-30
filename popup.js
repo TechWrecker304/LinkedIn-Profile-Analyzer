@@ -128,7 +128,6 @@ function evaluateCriteria(data) {
     totalEvaluation
   };
 }
-
 document.getElementById('extractData').addEventListener('click', () => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.tabs.sendMessage(tabs[0].id, { action: 'extractData' }, (response) => {
@@ -136,23 +135,26 @@ document.getElementById('extractData').addEventListener('click', () => {
 
       const output = document.getElementById('output');
       output.innerHTML = `
-        <p>Profile picture URL: ${response.profilePictureURL || 'Not found'}</p>
-        <p>Additional text: ${response.additionalText || 'Not found'}</p>
-        <p>About section: ${response.aboutSection || 'Not found'}</p>
-        <p><strong style="color: red;">Connection count:</strong> ${response.connectionCount || 'Not found'}</p>
-        <p><strong style="color: red;">Followers number:</strong> ${response.followersNumber || 'Not found'}</p>
-        <p><strong style="color: red;">Distance value:</strong> ${response.distanceValue || 'Not found'}</p>
-        <p><strong style="color: red;">Location:</strong> ${response.location || 'Not found'}</p>
-        <p><strong style="color: blue;">Meets follower count criteria:</strong> ${evaluationResults.meetsFollowerCountCriteria ? 'Yes' : 'No'}</p>
-        <p><strong style="color: blue;">Meets connection count criteria:</strong> ${evaluationResults.meetsConnectionCountCriteria ? 'Yes' : 'No'}</p>
-        <p><strong style="color: blue;">Meets distance value criteria:</strong> ${evaluationResults.meetsDistanceValueCriteria ? 'Yes' : 'No'}</p>
-         <p><strong style="color: blue;">Meets location criteria:</strong> ${evaluationResults.meetsLocationCriteria ? 'Yes' : 'No'}</p>
-        <p><strong style="color: green;">Total Evaluation:</strong> ${evaluationResults.totalEvaluation}</p>
-        ${evaluationResults.allCriteriaMet ? '<p><strong style="color: orange;">THIS PROFILE MEETS ALL CRITERIA</strong></p>' : ''}
-      `;
+	  <p><strong style="color: blue;">Profile picture URL:</strong> <a href="${response.profilePictureURL || '#'}" target="_blank">${response.profilePictureURL || 'Not found'}</a></p>
+	  <p><strong style="color: blue;">Title:</strong> ${response.additionalText || 'Not found'}</p>
+	  <p><strong style="color: blue;">About section:</strong> ${response.aboutSection || 'Not found'}</p>
+	  <p><strong style="color: purple;">Keywords:</strong> ${response.keywords.join(', ') || 'Not found'}</p>
+	  <p><strong style="color: red;">Connection count:</strong> ${response.connectionCount || 'Not found'}</p>
+	  <p><strong style="color: red;">Followers number:</strong> ${response.followersNumber || 'Not found'}</p>
+	  <p><strong style="color: red;">Distance value:</strong> ${response.distanceValue || 'Not found'}</p>
+	  <p><strong style="color: red;">Location:</strong> <a href="https://www.google.com/search?q=${encodeURIComponent(response.location || 'Not found')}" target="_blank">${response.location || 'Not found'}</a></p>
+	  <p><strong style="color: blue;">Meets follower count criteria:</strong> ${evaluationResults.meetsFollowerCountCriteria ? 'Yes' : 'No'}</p>
+	  <p><strong style="color: blue;">Meets connection count criteria:</strong> ${evaluationResults.meetsConnectionCountCriteria ? 'Yes' : 'No'}</p>
+	  <p><strong style="color: blue;">Meets distance value criteria:</strong> ${evaluationResults.meetsDistanceValueCriteria ? 'Yes' : 'No'}</p>
+	  <p><strong style="color: blue;">Meets location criteria:</strong> ${evaluationResults.meetsLocationCriteria ? 'Yes' : 'No'}</p>
+	  <p><strong style="color: green;">Total Evaluation:</strong> ${evaluationResults.totalEvaluation}</p>
+	  ${evaluationResults.allCriteriaMet ? '<p><strong style="color: orange;">THIS PROFILE MEETS ALL CRITERIA</strong></p>' : ''}
+	`;
+	
     });
   });
 });
+
 
 document.getElementById('exportJSON').addEventListener('click', () => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -212,5 +214,12 @@ document.getElementById('getAboutInfo').addEventListener('click', () => {
     const currentUrl = tabs[0].url;
     const aboutUrl = currentUrl + 'overlay/about-this-profile/';
     chrome.tabs.create({ url: aboutUrl });
+  });
+});
+document.getElementById('getContactInfo').addEventListener('click', () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    const currentUrl = tabs[0].url;
+    const contactInfoUrl = currentUrl + 'overlay/contact-info/';
+    chrome.tabs.create({ url: contactInfoUrl });
   });
 });
