@@ -14,6 +14,7 @@ LinkedIn Profile Analyzer is a Chrome extension that helps you analyze LinkedIn 
 - Exports the extracted data and evaluation results as a JSON or CSV file.
 - Reverese Image Search
 - Display the Profiles About section
+- Extracts Keywords from the About section
 
 ## Installation
 
